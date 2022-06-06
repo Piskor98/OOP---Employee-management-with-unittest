@@ -32,19 +32,28 @@ class Employee:       #Create simply employee class
 
     @property
     def business_card(self):          #Create a method which is returning dictionary whith employee's business_card data
+
+        if type(self.tel_number) not in [int]:
+            raise TypeError("Telephone number must be integer")
+        if len(str(self.tel_number))<9:
+            raise ValueError("Check again your tel number, it need to contain at least minimum 9 digits")
         return {
             'employee': f'{self.full_name}',
             'address': f'{self.full_address}',
-            'contact': f'{self.tel_number}'
+            'contact': self.tel_number
         }
 
     def apply_raise_salary(self):     #Create a method to increase employee's salary
         self.salary=int(self.salary*self.raise_salary)
+        return self.salary
 
 
 #Simple examples of creating employees
 Jan=Employee('Jan','Kowalski','Poland','Lubartów','Jesionowska 13', 123456789, 60000)
 Katarzyna=Employee('Katarzyna','Twardowska','Poland','Warszawa','Jagiełły 27/3',987654321,78000)
+print(Jan.salary)
+Jan.apply_raise_salary()
+print(Jan.salary)
 
 print(Jan,Katarzyna)                                    #check if objects exist
 print(Jan.business_card,Katarzyna.business_card)        #print information for clients
